@@ -753,12 +753,12 @@ function makeAvatar(id, size) {
 function calcScore(c) {
   const brandScore = Math.min(100, (c.brandDeals / 20) * 100);
   if (c.followers === null || c.followers === 'N/A') {
-    return +((c.media * 0.25 + brandScore * 0.20 + c.fanActivity * 0.15 + c.searchTrend * 0.05) / 0.65).toFixed(1);
+    return +((c.media * 0.35 + brandScore * 0.20 + c.fanActivity * 0.15 + c.searchTrend * 0.05) / 0.75).toFixed(1);
   }
   const followersScore = Math.min(100, c.followers);
   return +(
-    (followersScore * 0.35) +
-    (c.media        * 0.25) +
+    (followersScore * 0.25) +
+    (c.media        * 0.35) +
     (brandScore     * 0.20) +
     (c.fanActivity  * 0.15) +
     (c.searchTrend  * 0.05)
@@ -1032,8 +1032,8 @@ function openModal(id){
   const labels=['Social Reach','Media Presence','Brand Influence','Fan Engagement','Search Interest'];
   const hasFollowers=c.followers!==null&&c.followers!=='N/A';
   const vals=hasFollowers
-    ?[Math.min(100,c.followers)*0.35, c.media*0.25, Math.min(100,(c.brandDeals/20)*100)*0.20, c.fanActivity*0.15, c.searchTrend*0.05]
-    :[0, c.media*0.25/0.65, Math.min(100,(c.brandDeals/20)*100)*0.20/0.65, c.fanActivity*0.15/0.65, c.searchTrend*0.05/0.65];
+    ?[Math.min(100,c.followers)*0.25, c.media*0.35, Math.min(100,(c.brandDeals/20)*100)*0.20, c.fanActivity*0.15, c.searchTrend*0.05]
+    :[0, c.media*0.35/0.75, Math.min(100,(c.brandDeals/20)*100)*0.20/0.75, c.fanActivity*0.15/0.75, c.searchTrend*0.05/0.75];
   document.getElementById('modalBreakdown').innerHTML=labels.map((l,i)=>`
     <div class="breakdown-row">
       <div class="breakdown-label" style="font-size:0.52rem;width:135px">${l}</div>
