@@ -929,7 +929,7 @@ function drawChart(history) {
   const maxVal = Math.min(100, Math.max(...history) + 5);
   const range  = maxVal - minVal || 1;
 
-  const toX = (i) => pad.left + (i / (history.length - 1)) * chartW;
+  const toX = (i) => history.length === 1 ? pad.left + chartW / 2 : pad.left + (i / (history.length - 1)) * chartW;
   const toY = (v) => pad.top + (1 - (v - minVal) / range) * chartH;
 
   // Grid lines (3 horizontal)
@@ -990,7 +990,7 @@ function drawChart(history) {
   });
 
   // Week labels below chart
-  const weeks = history.map((_, i) => `WK ${i + 1}`);
+  const weeks = history.map((_, i) => i === history.length - 1 ? 'NOW' : `WK ${i + 1}`);
   if (labelsEl) {
     labelsEl.innerHTML = weeks.map(w =>
       `<span class="chart-label">${w}</span>`
