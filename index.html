@@ -133,73 +133,7 @@
   .modal-stat-box{border:1px solid var(--border);padding:0.9rem;}
   .modal-stat-label{font-family:'Space Mono',monospace;font-size:0.52rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-bottom:0.25rem;}
   .modal-stat-val{font-family:'Black Han Sans',sans-serif;font-size:1.2rem;}
-
-  /* =============================================
-     EDIT PANEL — the key feature
-  ============================================= */
-  .edit-panel{background:rgba(232,0,61,0.04);border:1px solid rgba(232,0,61,0.2);padding:1.4rem;margin-top:1.4rem;}
-  .edit-panel-title{font-family:'Black Han Sans',sans-serif;font-size:0.82rem;color:var(--red);letter-spacing:0.1em;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem;}
-  .edit-panel-title::before{content:'✏️';font-size:0.9rem;}
-  .edit-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.7rem;}
-  .edit-field{display:flex;flex-direction:column;gap:0.3rem;}
-  .edit-field label{font-family:'Space Mono',monospace;font-size:0.52rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);}
-  .edit-field input,
-  .edit-field select{background:var(--dim);border:1px solid var(--border);padding:0.5rem 0.7rem;color:var(--white);font-family:'Space Mono',monospace;font-size:0.7rem;outline:none;width:100%;}
-  .edit-field input:focus,
-  .edit-field select:focus{border-color:var(--red);}
-  .edit-actions{display:flex;gap:0.6rem;margin-top:1rem;}
-  .edit-save{flex:1;background:var(--red);border:none;color:var(--white);padding:0.65rem;font-family:'Space Mono',monospace;font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;transition:background 0.2s;}
-  .edit-save:hover{background:#ff0047;}
-  .edit-cancel{background:transparent;border:1px solid var(--border);color:var(--muted);padding:0.65rem 1rem;font-family:'Space Mono',monospace;font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;}
-  .edit-cancel:hover{border-color:var(--white);color:var(--white);}
-  .edit-note{font-family:'Space Mono',monospace;font-size:0.55rem;color:var(--muted);margin-top:0.8rem;line-height:1.6;letter-spacing:0.04em;}
-  .edit-note strong{color:var(--gold);}
-
-  /* SCORE FORMULA EXPLAINER */
-  .formula-box{background:var(--dim);border:1px solid var(--border);padding:1.2rem;margin-bottom:1.5rem;}
-  .formula-title{font-family:'Black Han Sans',sans-serif;font-size:0.82rem;margin-bottom:0.8rem;}
-  .formula-eq{font-family:'Space Mono',monospace;font-size:0.65rem;color:var(--gold);letter-spacing:0.06em;line-height:2;}
-
-  .live-dot{display:inline-block;width:6px;height:6px;background:var(--red);border-radius:50%;margin-right:4px;animation:pulse 1.5s ease infinite;}
-  @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.4;transform:scale(1.3)}}
-
-  .hero{padding:4rem 2.5rem 2.5rem;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;max-width:1400px;margin:0 auto;}
-  .hero-eyebrow{font-family:'Space Mono',monospace;font-size:0.62rem;letter-spacing:0.25em;color:var(--red);text-transform:uppercase;margin-bottom:1rem;display:flex;align-items:center;gap:0.8rem;}
-  .hero-eyebrow::before{content:'';display:inline-block;width:20px;height:1px;background:var(--red);}
-  h1{font-family:'Black Han Sans',sans-serif;font-size:clamp(2.6rem,5vw,4.8rem);line-height:1;margin-bottom:1.4rem;}
-  h1 em{font-style:normal;color:var(--red);display:block;}
-  .hero-desc{color:var(--muted);font-size:0.92rem;line-height:1.8;max-width:480px;margin-bottom:2rem;}
-  .hero-btns{display:flex;gap:1rem;flex-wrap:wrap;}
-  .btn-primary{background:var(--red);color:var(--white);padding:0.8rem 1.8rem;font-family:'Space Mono',monospace;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;border:none;cursor:pointer;transition:all 0.2s;}
-  .btn-primary:hover{background:#ff0047;transform:translateY(-2px);}
-  .btn-secondary{background:transparent;color:var(--white);padding:0.8rem 1.8rem;font-family:'Space Mono',monospace;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;border:1px solid var(--border);cursor:pointer;transition:all 0.2s;}
-  .btn-secondary:hover{border-color:var(--white);}
-  .stats-bar{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--border);overflow:hidden;}
-  .stat-item{padding:1.8rem;border-right:1px solid var(--border);text-align:center;}
-  .stat-item:last-child{border-right:none;}
-  .stat-num{font-family:'Black Han Sans',sans-serif;font-size:2.6rem;color:var(--white);display:block;line-height:1;}
-  .stat-num .accent{color:var(--red);}
-  .stat-label{font-family:'Space Mono',monospace;font-size:0.58rem;color:var(--muted);letter-spacing:0.18em;text-transform:uppercase;margin-top:0.4rem;display:block;}
-  .category-cards{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin-bottom:2.5rem;}
-  .cat-card{background:var(--card);padding:1.6rem 1rem;cursor:pointer;transition:background 0.2s;text-align:center;}
-  .cat-card:hover{background:var(--dim);}
-  .cat-card-icon{font-size:1.9rem;margin-bottom:0.5rem;display:block;}
-  .cat-card-title{font-family:'Black Han Sans',sans-serif;font-size:0.95rem;margin-bottom:0.2rem;}
-  .cat-card-count{font-family:'Space Mono',monospace;font-size:0.52rem;color:var(--muted);letter-spacing:0.08em;}
-  .feature-strip{background:var(--dim);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:2.5rem 2.5rem;}
-  .feature-inner{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);}
-  .feature-item{padding:1.8rem;border-right:1px solid var(--border);text-align:center;}
-  .feature-item:last-child{border-right:none;}
-  .feature-icon{font-size:1.8rem;margin-bottom:0.8rem;display:block;}
-  .feature-title{font-family:'Black Han Sans',sans-serif;font-size:0.95rem;margin-bottom:0.4rem;}
-  .feature-desc{font-size:0.74rem;color:var(--muted);line-height:1.7;}
-  footer{border-top:1px solid var(--border);padding:1.8rem 2.5rem;display:flex;justify-content:space-between;align-items:center;max-width:1400px;margin:0 auto;}
-  .footer-logo{font-family:'Black Han Sans',sans-serif;font-size:1.1rem;}
-  .footer-logo span{color:var(--red);}
-  .footer-links{display:flex;gap:1.8rem;}
-  .footer-links a{font-family:'Space Mono',monospace;font-size:0.58rem;color:var(--muted);text-decoration:none;letter-spacing:0.1em;transition:color 0.2s;}
-  .footer-links a:hover{color:var(--white);}
-  .toast{position:fixed;bottom:2rem;right:2rem;background:#00d68f;color:#000;font-family:'Space Mono',monospace;font-size:0.7rem;letter-spacing:0.1em;padding:0.8rem 1.4rem;z-index:600;animation:fadeUp 0.3s ease;display:none;}
+  
 
   @media(max-width:1024px){.rankings-layout{grid-template-columns:1fr;}.side-panel{position:static;}}
   @media(max-width:768px){.hero{grid-template-columns:1fr;gap:2rem;}.feature-inner{grid-template-columns:1fr 1fr;}.category-cards{grid-template-columns:1fr 1fr;}.nav-links{display:none;}.rank-table th:nth-child(3),.rank-table td:nth-child(3),.rank-table th:nth-child(4),.rank-table td:nth-child(4){display:none;}}
@@ -223,16 +157,16 @@
 </nav>
 
 <div class="ticker-wrap">
-  <div class="ticker" id="tickerText">▲ KRANK is live — rankings update automatically as data changes &nbsp;·&nbsp; Click any row to edit a celebrity's stats &nbsp;·&nbsp; Scores are calculated in real time &nbsp;·&nbsp; ▲ KRANK is live — rankings update automatically as data changes &nbsp;·&nbsp; Click any row to edit a celebrity's stats &nbsp;·&nbsp; Scores are calculated in real time &nbsp;·&nbsp;</div>
+  <div class="ticker" id="tickerText">▲ BTS/V leads overall rankings &nbsp;·&nbsp; BLACKPINK LISA highest social reach at 97.1M &nbsp;·&nbsp; SON HEUNG-MIN top athlete &nbsp;·&nbsp; FAKER leads esports category &nbsp;·&nbsp; IU tops actor rankings &nbsp;·&nbsp; STRAY KIDS rising fast &nbsp;·&nbsp; ▲ BTS/V leads overall rankings &nbsp;·&nbsp; BLACKPINK LISA highest social reach at 97.1M &nbsp;·&nbsp; SON HEUNG-MIN top athlete &nbsp;·&nbsp; FAKER leads esports category &nbsp;·&nbsp; IU tops actor rankings &nbsp;·&nbsp; STRAY KIDS rising fast &nbsp;·&nbsp;</div>
 </div>
 
 <!-- HOME -->
 <div id="page-home" class="page active">
   <div class="hero">
     <div>
-      <div class="hero-eyebrow"><span class="live-dot"></span> Live Index · Auto-Ranks on Update</div>
+      <div class="hero-eyebrow"><span class="live-dot"></span> Live Index · Updated Regularly</div>
       <h1>The Power<em>Rankings</em>of Korean Stars</h1>
-      <p class="hero-desc">KRANK auto-calculates scores from follower counts, media appearances, brand deals, and fan activity. Update any number — the rankings instantly re-sort themselves.</p>
+      <p class="hero-desc">KRANK scores 100+ Korean celebrities across K-Pop, acting, content creation, and athletics — combining social reach, media appearances, brand deals, and fan engagement into one authoritative number.</p>
       <div class="hero-btns">
         <button class="btn-primary" onclick="showPage('rankings')">View All 100 →</button>
         <button class="btn-secondary" onclick="showPage('api')">How Scores Work</button>
@@ -241,7 +175,7 @@
     <div class="stats-bar">
       <div class="stat-item"><span class="stat-num">100<span class="accent">+</span></span><span class="stat-label">Celebrities</span></div>
       <div class="stat-item"><span class="stat-num">5<span class="accent"></span></span><span class="stat-label">Categories</span></div>
-      <div class="stat-item"><span class="stat-num" id="homeAutoScore">⚡</span><span class="stat-label">Auto-Scoring</span></div>
+      <div class="stat-item"><span class="stat-num">Daily<span class="accent">+</span></span><span class="stat-label">Updates</span></div>
     </div>
   </div>
   <div class="section">
@@ -251,10 +185,10 @@
       <div class="cat-card" onclick="showPage('actors')"><span class="cat-card-icon">🎭</span><div class="cat-card-title">Actors</div><div class="cat-card-count">30 ACTORS</div></div>
       <div class="cat-card" onclick="showPage('creators')"><span class="cat-card-icon">📱</span><div class="cat-card-title">Creators</div><div class="cat-card-count">20 CREATORS</div></div>
       <div class="cat-card" onclick="showPage('athletes')"><span class="cat-card-icon">🏅</span><div class="cat-card-title">Athletes</div><div class="cat-card-count">10 ATHLETES</div></div>
-      <div class="cat-card" onclick="showPage('api')"><span class="cat-card-icon">📐</span><div class="cat-card-title">Formula</div><div class="cat-card-count">HOW WE SCORE</div></div>
+      <div class="cat-card" onclick="showPage('api')"><span class="cat-card-icon">📐</span><div class="cat-card-title">Methodology</div><div class="cat-card-count">HOW WE SCORE</div></div>
     </div>
     <div class="section-header" style="margin-top:0.5rem">
-      <div><div class="section-title">Top <span>10</span> Overall</div><div class="section-subtitle">AUTO-SORTED BY KRANK SCORE · CLICK ANY ROW TO EDIT</div></div>
+      <div><div class="section-title">Top <span>10</span> Overall</div><div class="section-subtitle">SORTED BY KRANK SCORE · CLICK ANY ROW FOR DETAILS</div></div>
       <button class="btn-secondary" style="font-size:0.62rem;padding:0.45rem 0.9rem;" onclick="showPage('rankings')">View All 100 →</button>
     </div>
     <table class="rank-table" id="homeTable"></table>
@@ -264,14 +198,14 @@
       <div class="feature-item"><span class="feature-icon">🔄</span><div class="feature-title">Auto-Ranks</div><p class="feature-desc">Change any follower count or score — rankings re-sort instantly across all pages. No manual reordering needed.</p></div>
       <div class="feature-item"><span class="feature-icon">📐</span><div class="feature-title">Score Formula</div><p class="feature-desc">Scores are calculated from 5 weighted inputs. You control the raw numbers; the formula does the rest.</p></div>
       <div class="feature-item"><span class="feature-icon">🏷️</span><div class="feature-title">Dual Ranking</div><p class="feature-desc">Each celebrity has both an Overall rank and a Category rank. Both update automatically on every edit.</p></div>
-      <div class="feature-item"><span class="feature-icon">✏️</span><div class="feature-title">Easy Editing</div><p class="feature-desc">Click any celebrity row to open an edit panel. Update their real-world stats and hit Save — done.</p></div>
+      <div class="feature-item"><span class="feature-icon">📈</span><div class="feature-title">Weekly Updates</div><p class="feature-desc">Rankings refresh regularly with the latest follower counts, brand deals, media scores, and fan activity data.</p></div>
     </div>
   </div>
 </div>
 
 <!-- RANKINGS ALL -->
 <div id="page-rankings" class="page">
-  <div class="page-banner"><div class="page-banner-inner"><div><h2>Overall <span>Power Rankings</span></h2><p>All 100 celebrities · Click any row to update stats · Rankings auto-sort</p></div><div class="page-banner-stat"><div class="big">100</div><div class="small">Auto-Ranked</div></div></div></div>
+  <div class="page-banner"><div class="page-banner-inner"><div><h2>Overall <span>Power Rankings</span></h2><p>All 100 celebrities · Click any row for details · Sorted by KRANK score</p></div><div class="page-banner-stat"><div class="big">100</div><div class="small">Auto-Ranked</div></div></div></div>
   <div class="section">
     <div class="rankings-layout">
       <div>
@@ -295,7 +229,7 @@
 
 <!-- K-POP -->
 <div id="page-kpop" class="page">
-  <div class="page-banner"><div class="page-banner-inner"><div><h2>K-Pop <span>Rankings</span></h2><p>Category rank shown · Overall rank badge per entry · Click to edit</p></div><div class="page-banner-stat"><div class="big">40</div><div class="small">Artists</div></div></div></div>
+  <div class="page-banner"><div class="page-banner-inner"><div><h2>K-Pop <span>Rankings</span></h2><p>Category rank shown · Overall rank badge per entry · Click for details</p></div><div class="page-banner-stat"><div class="big">40</div><div class="small">Artists</div></div></div></div>
   <div class="section">
     <div class="rankings-layout">
       <div>
@@ -318,7 +252,7 @@
 
 <!-- ACTORS -->
 <div id="page-actors" class="page">
-  <div class="page-banner"><div class="page-banner-inner"><div><h2>Actor <span>Rankings</span></h2><p>Category rank shown · Overall rank badge per entry · Click to edit</p></div><div class="page-banner-stat"><div class="big">30</div><div class="small">Actors</div></div></div></div>
+  <div class="page-banner"><div class="page-banner-inner"><div><h2>Actor <span>Rankings</span></h2><p>Category rank shown · Overall rank badge per entry · Click for details</p></div><div class="page-banner-stat"><div class="big">30</div><div class="small">Actors</div></div></div></div>
   <div class="section">
     <div class="rankings-layout">
       <div>
@@ -339,7 +273,7 @@
 
 <!-- CREATORS -->
 <div id="page-creators" class="page">
-  <div class="page-banner"><div class="page-banner-inner"><div><h2>Creator <span>Rankings</span></h2><p>Category rank shown · Overall rank badge per entry · Click to edit</p></div><div class="page-banner-stat"><div class="big">20</div><div class="small">Creators</div></div></div></div>
+  <div class="page-banner"><div class="page-banner-inner"><div><h2>Creator <span>Rankings</span></h2><p>Category rank shown · Overall rank badge per entry · Click for details</p></div><div class="page-banner-stat"><div class="big">20</div><div class="small">Creators</div></div></div></div>
   <div class="section">
     <div class="rankings-layout">
       <div>
@@ -360,7 +294,7 @@
 
 <!-- ATHLETES -->
 <div id="page-athletes" class="page">
-  <div class="page-banner"><div class="page-banner-inner"><div><h2>Athlete <span>Rankings</span></h2><p>Category rank shown · Overall rank badge per entry · Click to edit</p></div><div class="page-banner-stat"><div class="big">10</div><div class="small">Athletes</div></div></div></div>
+  <div class="page-banner"><div class="page-banner-inner"><div><h2>Athlete <span>Rankings</span></h2><p>Category rank shown · Overall rank badge per entry · Click for details</p></div><div class="page-banner-stat"><div class="big">10</div><div class="small">Athletes</div></div></div></div>
   <div class="section">
     <div class="rankings-layout">
       <div>
@@ -409,8 +343,8 @@
       <div class="formula-title">📋 Step-by-Step: How to Update a Celebrity</div>
       <div style="font-family:'Space Mono',monospace;font-size:0.65rem;color:var(--muted);line-height:2.2;letter-spacing:0.04em;">
         1. Go to any Rankings page (K-Pop, Actors, etc.)<br>
-        2. Click on the celebrity's row<br>
-        3. A popup opens showing their current stats<br>
+        2. Click on any celebrity row<br>
+        3. A popup shows their full stats and score breakdown<br>
         4. Scroll down to the <span style="color:var(--red)">✏️ EDIT STATS</span> panel<br>
         5. Enter the real numbers you've looked up<br>
         6. Hit <span style="color:#00d68f">SAVE & RECALCULATE</span><br>
@@ -434,59 +368,10 @@
     </div>
     <div class="modal-stats" id="modalStats"></div>
     <div class="score-breakdown" id="modalBreakdown"></div>
-
-    <!-- EDIT PANEL -->
-    <div class="edit-panel">
-      <div class="edit-panel-title">EDIT STATS — Rankings auto-update on save</div>
-      <div class="edit-grid">
-        <div class="edit-field">
-          <label>Social Followers (M)</label>
-          <input type="number" id="edit-followers" placeholder="e.g. 24.5" step="0.1" min="0"/>
-        </div>
-        <div class="edit-field">
-          <label>Media Score (0–100)</label>
-          <input type="number" id="edit-media" placeholder="e.g. 87" min="0" max="100"/>
-        </div>
-        <div class="edit-field">
-          <label>Brand Deals (count)</label>
-          <input type="number" id="edit-brands" placeholder="e.g. 8" min="0"/>
-        </div>
-        <div class="edit-field">
-          <label>Fan Activity (0–100)</label>
-          <input type="number" id="edit-fan" placeholder="e.g. 90" min="0" max="100"/>
-        </div>
-        <div class="edit-field">
-          <label>Search Trend (0–100)</label>
-          <input type="number" id="edit-trend-score" placeholder="e.g. 72" min="0" max="100"/>
-        </div>
-        <div class="edit-field">
-          <label>Trend Direction</label>
-          <select id="edit-trend">
-            <option value="hot">🔥 Hot</option>
-            <option value="rising">↑ Rising</option>
-            <option value="stable">— Stable</option>
-            <option value="falling">↓ Falling</option>
-          </select>
-        </div>
-        <div class="edit-field" style="grid-column:1/-1">
-          <label>Weekly Change (e.g. +3.2 or -1.4)</label>
-          <input type="text" id="edit-change" placeholder="e.g. +3.2"/>
-        </div>
-      </div>
-      <div class="edit-actions">
-        <button class="edit-save" onclick="saveEdit()">✓ Save & Recalculate Rankings</button>
-        <button class="edit-cancel" onclick="document.getElementById('modalOverlay').classList.remove('open')">Cancel</button>
-      </div>
-      <div class="edit-note">
-        <strong>Tip:</strong> Enter real numbers from Instagram, YouTube, etc.<br>
-        The KRANK score recalculates automatically using the weighted formula.<br>
-        Rankings on ALL pages re-sort the moment you hit Save.
-      </div>
-    </div>
   </div>
 </div>
+</div>
 
-<div class="toast" id="toast"></div>
 
 <footer>
   <div><div class="footer-logo">KR<span>A</span>NK</div><div style="font-family:'Space Mono',monospace;font-size:0.52rem;color:var(--muted);margin-top:4px;letter-spacing:0.1em;">© 2026 KRANK INDEX · ALL RIGHTS RESERVED</div></div>
@@ -770,45 +655,13 @@ function renderSidePanel(page,data){
         </li>`).join('')}
       </ul>
     </div>
-    <div class="panel-card" style="background:rgba(232,0,61,0.04);border-color:rgba(232,0,61,0.2)">
-      <div class="panel-title" style="color:var(--red)">EDIT TIP ✏️</div>
-      <div style="font-family:'Space Mono',monospace;font-size:0.56rem;color:var(--muted);line-height:1.8;">
-        Click any row to<br>open the edit panel.<br>Update real numbers →<br>Rankings auto-sort.
-      </div>
-    </div>`;
+  `;
 }
 
 // =============================================
-// HOME TABLE
+// MODAL — click any row to see full details
 // =============================================
-function renderHomeTable(){
-  const t=document.getElementById('homeTable');
-  if(!t)return;
-  const top10=[...DB].sort((a,b)=>a.overallRank-b.overallRank).slice(0,10);
-  t.innerHTML=`<thead><tr><th>RANK</th><th>Celebrity</th><th>Social</th><th>Media</th><th>Trend</th><th>Score</th></tr></thead><tbody>`
-    +top10.map((c,i)=>{
-      const social=c.followers>=1?c.followers.toFixed(1)+'M':Math.round(c.followers*1000)+'K';
-      return `<tr class="rank-row" onclick="openModal(${c.id})">
-        <td class="rank-num ${i===0?'gold':i===1?'silver':i===2?'bronze':''}">${i+1}</td>
-        <td><div class="celeb-info"><div class="celeb-avatar">${c.emoji}</div><div>
-          <div class="celeb-name">${c.name}</div><div class="celeb-name-kr">${c.kr}</div>
-          <div class="celeb-meta">${c.tags.slice(0,2).map(t=>`<span class="tag ${t}">${t.toUpperCase()}</span>`).join('')}</div>
-        </div></div></td>
-        <td><div class="metric-bar"><div class="bar-track"><div class="bar-fill" style="width:${Math.min(100,c.followers)}%"></div></div><span class="metric-val">${social}</span></div></td>
-        <td><div class="metric-bar"><div class="bar-track"><div class="bar-fill" style="width:${c.media}%;background:#c8a84b"></div></div><span class="metric-val">${c.media}/100</span></div></td>
-        <td><span class="trend-badge ${c.trend}">${trendLabel(c.trend)}</span></td>
-        <td><div class="power-score">${c.score}</div><div class="score-change ${c.ch}">${c.ch==='up'?'▲':c.ch==='down'?'▼':'—'} ${c.ct} pts</div></td>
-      </tr>`;
-    }).join('')+'</tbody>';
-}
-
-// =============================================
-// MODAL
-// =============================================
-let currentEditId = null;
-
 function openModal(id){
-  currentEditId=id;
   const c=DB[id];
   document.getElementById('modalRank').textContent='#'+c.overallRank;
   document.getElementById('modalName').textContent=c.name;
@@ -824,9 +677,12 @@ function openModal(id){
   document.getElementById('modalStats').innerHTML=`
     <div class="modal-stat-box"><div class="modal-stat-label">Followers</div><div class="modal-stat-val">${social}</div></div>
     <div class="modal-stat-box"><div class="modal-stat-label">Media Score</div><div class="modal-stat-val">${c.media}/100</div></div>
-    <div class="modal-stat-box"><div class="modal-stat-label">Brand Deals</div><div class="modal-stat-val">${c.brandDeals}</div></div>
+    <div class="modal-stat-box"><div class="modal-stat-label">Brand Deals</div><div class="modal-stat-val">${c.brandDeals} Active</div></div>
     <div class="modal-stat-box"><div class="modal-stat-label">Fan Activity</div><div class="modal-stat-val">${c.fanActivity}/100</div></div>
+    <div class="modal-stat-box"><div class="modal-stat-label">Search Trend</div><div class="modal-stat-val">${c.searchTrend}/100</div></div>
+    <div class="modal-stat-box"><div class="modal-stat-label">Weekly Change</div><div class="modal-stat-val" style="color:${c.ch==='up'?'#00d68f':c.ch==='down'?'var(--red)':'var(--muted)'}">${c.ch==='up'?'▲':c.ch==='down'?'▼':'—'} ${c.ct} pts</div></div>
   `;
+
   const colors=['#e8003d','#c8a84b','#4488ff','#00d68f','#aa44ff'];
   const labels=['Followers (35%)','Media (25%)','Brand Deals (20%)','Fan Activity (15%)','Search Trend (5%)'];
   const vals=[
@@ -843,69 +699,12 @@ function openModal(id){
       <div class="breakdown-val">${vals[i].toFixed(1)}</div>
     </div>`).join('');
 
-  // Pre-fill edit fields with current values
-  document.getElementById('edit-followers').value=c.followers;
-  document.getElementById('edit-media').value=c.media;
-  document.getElementById('edit-brands').value=c.brandDeals;
-  document.getElementById('edit-fan').value=c.fanActivity;
-  document.getElementById('edit-trend-score').value=c.searchTrend;
-  document.getElementById('edit-trend').value=c.trend;
-  document.getElementById('edit-change').value=c.ct;
-
   document.getElementById('modalOverlay').classList.add('open');
 }
 
 function closeModal(e){
   if(e.target.id==='modalOverlay')document.getElementById('modalOverlay').classList.remove('open');
 }
-
-// =============================================
-// SAVE & RECALCULATE — the magic function
-// =============================================
-function saveEdit(){
-  if(currentEditId===null)return;
-  const c=DB[currentEditId];
-
-  // Read new values from edit fields
-  const newFollowers = parseFloat(document.getElementById('edit-followers').value)||c.followers;
-  const newMedia     = Math.min(100,Math.max(0,parseInt(document.getElementById('edit-media').value)||c.media));
-  const newBrands    = Math.max(0,parseInt(document.getElementById('edit-brands').value)||c.brandDeals);
-  const newFan       = Math.min(100,Math.max(0,parseInt(document.getElementById('edit-fan').value)||c.fanActivity));
-  const newSearch    = Math.min(100,Math.max(0,parseInt(document.getElementById('edit-trend-score').value)||c.searchTrend));
-  const newTrend     = document.getElementById('edit-trend').value;
-  const newChange    = document.getElementById('edit-change').value||c.ct;
-  const newCh        = newChange.startsWith('+')?'up':newChange.startsWith('-')?'down':'flat';
-
-  // Update the database entry
-  DB[currentEditId].followers  = newFollowers;
-  DB[currentEditId].media      = newMedia;
-  DB[currentEditId].brandDeals = newBrands;
-  DB[currentEditId].fanActivity= newFan;
-  DB[currentEditId].searchTrend= newSearch;
-  DB[currentEditId].trend      = newTrend;
-  DB[currentEditId].ct         = newChange;
-  DB[currentEditId].ch         = newCh;
-
-  // Recalculate ALL scores and ALL ranks
-  recomputeAll();
-
-  // Close modal
-  document.getElementById('modalOverlay').classList.remove('open');
-
-  // Refresh every visible table and home
-  renderHomeTable();
-  ['all','kpop','actors','creators','athletes'].forEach(page=>{
-    const tbody=document.getElementById('rankTable-'+page);
-    if(tbody&&tbody.innerHTML!=='')renderTable(page,state[page].filter);
-  });
-
-  // Show toast
-  const toast=document.getElementById('toast');
-  toast.textContent=`✓ ${c.name} updated — all rankings recalculated`;
-  toast.style.display='block';
-  setTimeout(()=>{toast.style.display='none';},3000);
-}
-
 // INIT
 renderHomeTable();
 </script>
