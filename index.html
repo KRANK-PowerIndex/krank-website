@@ -1020,7 +1020,7 @@ function openModal(id){
     `<span class="overall-badge">Overall #${c.overallRank}</span>`+
     (c.catRank?`<span class="cat-badge">${c.cat.toUpperCase()} #${c.catRank}</span>`:'');
   document.getElementById('modalScore').textContent=c.score;
-  const social=c.followers>=1?c.followers.toFixed(1)+'M':Math.round(c.followers*1000)+'K';
+  const social=c.followers===null||c.followers==='N/A'?'N/A':c.followers>=1?c.followers.toFixed(1)+'M':Math.round(c.followers*1000)+'K';
   document.getElementById('modalStats').innerHTML=`
     <div class="modal-stat-box"><div class="modal-stat-label">Followers</div><div class="modal-stat-val">${social}</div></div>
     <div class="modal-stat-box"><div class="modal-stat-label">Media Score</div><div class="modal-stat-val">${c.media}/100</div></div>
