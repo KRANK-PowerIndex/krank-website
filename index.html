@@ -456,7 +456,7 @@
     <div class="modal-stats" id="modalStats"></div>
     <div class="score-breakdown" id="modalBreakdown"></div>
     <div class="chart-section">
-      <div class="chart-title">SCORE HISTORY <span>LAST 8 WEEKS</span></div>
+      <div class="chart-title">SCORE HISTORY <span>WEEK BY WEEK</span></div>
       <div class="chart-wrap"><canvas id="rankChart"></canvas></div>
       <div class="chart-labels" id="chartLabels"></div>
     </div>
@@ -766,6 +766,7 @@ function recomputeAll() {
     [...DB].filter(c=>c.cat===cat).sort((a,b)=>b.score-a.score).forEach((c,i)=>{ c.catRank=i+1; });
   });
 }
+DB.forEach(c => { c.history = [c.history[c.history.length - 1]]; });
 recomputeAll();
 
 function trendLabel(t){ return {hot:'🔥 HOT',rising:'↑ RISING',stable:'— STABLE',falling:'↓ FALLING'}[t]||'— STABLE'; }
@@ -989,7 +990,7 @@ function drawChart(history) {
   });
 
   // Week labels below chart
-  const weeks = ['W-7','W-6','W-5','W-4','W-3','W-2','W-1','NOW'];
+  const weeks = history.map((_, i) => `WK ${i + 1}`);
   if (labelsEl) {
     labelsEl.innerHTML = weeks.map(w =>
       `<span class="chart-label">${w}</span>`
