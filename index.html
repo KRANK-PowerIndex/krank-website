@@ -456,7 +456,7 @@
     <div class="modal-stats" id="modalStats"></div>
     <div class="score-breakdown" id="modalBreakdown"></div>
     <div class="chart-section">
-      <div class="chart-title">SCORE HISTORY <span>WEEK BY WEEK</span></div>
+      <div class="chart-title">SCORE HISTORY <span>LAST 8 WEEKS</span></div>
       <div class="chart-wrap"><canvas id="rankChart"></canvas></div>
       <div class="chart-labels" id="chartLabels"></div>
     </div>
@@ -766,7 +766,6 @@ function recomputeAll() {
     [...DB].filter(c=>c.cat===cat).sort((a,b)=>b.score-a.score).forEach((c,i)=>{ c.catRank=i+1; });
   });
 }
-DB.forEach(c => { c.history = [c.history[c.history.length - 1]]; });
 recomputeAll();
 
 function trendLabel(t){ return {hot:'🔥 HOT',rising:'↑ RISING',stable:'— STABLE',falling:'↓ FALLING'}[t]||'— STABLE'; }
@@ -929,7 +928,7 @@ function drawChart(history) {
   const maxVal = Math.min(100, Math.max(...history) + 5);
   const range  = maxVal - minVal || 1;
 
-  const toX = (i) => history.length === 1 ? pad.left + chartW / 2 : pad.left + (i / (history.length - 1)) * chartW;
+  const toX = (i) => pad.left + (i / (history.length - 1)) * chartW;
   const toY = (v) => pad.top + (1 - (v - minVal) / range) * chartH;
 
   // Grid lines (3 horizontal)
@@ -990,7 +989,7 @@ function drawChart(history) {
   });
 
   // Week labels below chart
-  const weeks = history.map((_, i) => i === history.length - 1 ? 'NOW' : `WK ${i + 1}`);
+  const weeks = ['W-7','W-6','W-5','W-4','W-3','W-2','W-1','NOW'];
   if (labelsEl) {
     labelsEl.innerHTML = weeks.map(w =>
       `<span class="chart-label">${w}</span>`
