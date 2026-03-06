@@ -1153,7 +1153,7 @@ function openModal(id){
   document.getElementById('modalStats').innerHTML=`
     <div class="modal-stat-box"><div class="modal-stat-label">Followers</div><div class="modal-stat-val">${social}</div></div>
     <div class="modal-stat-box"><div class="modal-stat-label">Media Score</div><div class="modal-stat-val">${c.media}/100</div></div>
-    <div class="modal-stat-box"><div class="modal-stat-label">Brand Deals</div><div class="modal-stat-val">${c.brandDeals} Active</div></div>
+    <div class="modal-stat-box"><div class="modal-stat-label">Brand Influence</div><div class="modal-stat-val">${Math.round(Math.min(100,(c.brandDeals/20)*100))}/100</div></div>
     <div class="modal-stat-box"><div class="modal-stat-label">Fan Activity</div><div class="modal-stat-val">${c.fanActivity}/100</div></div>
     <div class="modal-stat-box"><div class="modal-stat-label">Search Trend</div><div class="modal-stat-val">${c.searchTrend}/100</div></div>
     <div class="modal-stat-box"><div class="modal-stat-label">Weekly Change</div><div class="modal-stat-val" style="color:${c.ch==='up'?'#1e8449':c.ch==='down'?'#c0392b':'#8a8480'}">${c.ch==='up'?'▲':c.ch==='down'?'▼':'—'} ${c.ct} pts</div></div>`;
