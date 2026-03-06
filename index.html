@@ -1296,9 +1296,20 @@ function populateVoteStars(cat){
 }
 
 function updateVoteDisplay(){
-  const all = JSON.parse(localStorage.getItem('krank_votes')||'[]');
-  document.getElementById('totalVoteCount').textContent  = all.length;
-  document.getElementById('voteCountDisplay').textContent= all.length;
+  // Fetch live count from spreadsheet
+  fetch(SHEETS_URL)
+    .then(r=>r.json())
+    .then(data=>{
+      const n = data.count ?? '—';
+      document.getElementById('totalVoteCount').textContent  = n;
+      document.getElementById('voteCountDisplay').textContent= n;
+    })
+    .catch(()=>{
+      // Fallback to localStorage count if fetch fails
+      const n = JSON.parse(localStorage.getItem('krank_votes')||'[]').length;
+      document.getElementById('totalVoteCount').textContent  = n;
+      document.getElementById('voteCountDisplay').textContent= n;
+    });
 }
 
 async function submitVote(){
