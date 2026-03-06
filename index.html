@@ -951,14 +951,14 @@ function followersScore(f) {
 function calcScore(c) {
   const brandScore = Math.min(100, (c.brandDeals / 20) * 100);
   if (c.followers === null || c.followers === 'N/A') {
-    return +((c.media * 0.35 + brandScore * 0.20 + c.fanActivity * 0.15 + c.searchTrend * 0.05) / 0.75).toFixed(1);
+    return +((c.media * 0.35 + brandScore * 0.20 + c.fanActivity * 0.25 + c.searchTrend * 0.05) / 0.85).toFixed(1);
   }
   const fScore = followersScore(c.followers);
   return +(
-    (fScore        * 0.25) +
+    (fScore        * 0.15) +
     (c.media       * 0.35) +
     (brandScore    * 0.20) +
-    (c.fanActivity * 0.15) +
+    (c.fanActivity * 0.25) +
     (c.searchTrend * 0.05)
   ).toFixed(1);
 }
@@ -1235,8 +1235,8 @@ function openModal(id){
   const labels=['Social Reach','Media Presence','Brand Influence','Fan Engagement','Search Interest'];
   const hasFollowers=c.followers!==null&&c.followers!=='N/A';
   const vals=hasFollowers
-    ?[followersScore(c.followers)*0.25, c.media*0.35, Math.min(100,(c.brandDeals/20)*100)*0.20, c.fanActivity*0.15, c.searchTrend*0.05]
-    :[0, c.media*0.35/0.75, Math.min(100,(c.brandDeals/20)*100)*0.20/0.75, c.fanActivity*0.15/0.75, c.searchTrend*0.05/0.75];
+    ?[followersScore(c.followers)*0.15, c.media*0.35, Math.min(100,(c.brandDeals/20)*100)*0.20, c.fanActivity*0.25, c.searchTrend*0.05]
+    :[0, c.media*0.35/0.85, Math.min(100,(c.brandDeals/20)*100)*0.20/0.85, c.fanActivity*0.25/0.85, c.searchTrend*0.05/0.85];
   document.getElementById('modalBreakdown').innerHTML=labels.map((l,i)=>`
     <div class="breakdown-row">
       <div class="breakdown-label" style="font-size:0.52rem;width:135px">${l}</div>
