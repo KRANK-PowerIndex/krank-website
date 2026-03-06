@@ -1295,21 +1295,29 @@ function populateVoteStars(cat){
   document.getElementById('voteStep3').style.pointerEvents='none';
 }
 
+function setVoteCount(n){
+  document.getElementById('totalVoteCount').textContent  = n;
+  document.getElementById('voteCountDisplay').textContent= n;
+}
 function updateVoteDisplay(){
-  // Fetch live count from spreadsheet
-  fetch(SHEETS_URL)
-    .then(r=>r.json())
-    .then(data=>{
-      const n = data.count ?? '—';
-      document.getElementById('totalVoteCount').textContent  = n;
-      document.getElementById('voteCountDisplay').textContent= n;
-    })
-    .catch(()=>{
-      // Fallback to localStorage count if fetch fails
-      const n = JSON.parse(localStorage.getItem('krank_votes')||'[]').length;
-      document.getElementById('totalVoteCount').textContent  = n;
-      document.getElementById('voteCountDisplay').textContent= n;
-    });
+  // Use a script tag to load count — avoids CORS redirect issues with Apps Script GET
+  const cbName = '_krankCb_' + Date.now();
+  window[cbName] = function(data){
+    if(data && data.count != null) setVoteCount(data.count);
+    delete window[cbName];
+    if(script.parentNode) script.parentNode.removeChild(script);
+  };
+  const script = document.createElement('script');
+  script.onerror = function(){
+    // Fallback: fetch normally
+    fetch(SHEETS_URL)
+      .then(r=>r.json())
+      .then(d=>{ if(d.count!=null) setVoteCount(d.count); })
+      .catch(()=>{ setVoteCount(JSON.parse(localStorage.getItem('krank_votes')||'[]').length); });
+    delete window[cbName];
+  };
+  script.src = SHEETS_URL + '?callback=' + cbName;
+  document.head.appendChild(script);
 }
 
 async function submitVote(){
@@ -1350,9 +1358,13 @@ async function submitVote(){
   updateVoteDisplay();
 
   try {
-    await fetch(SHEETS_URL, {method:'POST', body: JSON.stringify(vote)});
+    const res = await fetch(SHEETS_URL, {method:'POST', body: JSON.stringify(vote)});
+    const data = await res.json();
+    if(data.count != null) setVoteCount(data.count);
+    else updateVoteDisplay();
   } catch(e){
     console.warn('Sheets log failed:', e);
+    updateVoteDisplay();
   }
 
   showVoteMsg('success',`✓ Your vote for ${star.name} has been recorded! Thank you for your support.`);
