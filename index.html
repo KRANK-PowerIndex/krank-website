@@ -941,18 +941,25 @@ function makeAvatar(id, size) {
 // =============================================
 // SCORE CALCULATION
 // =============================================
+const MAX_FOLLOWERS = Math.max(...DB.filter(c => c.followers !== null && c.followers !== 'N/A').map(c => c.followers));
+
+function followersScore(f) {
+  if (f === null || f === 'N/A') return 0;
+  return Math.min(100, (f / MAX_FOLLOWERS) * 100);
+}
+
 function calcScore(c) {
   const brandScore = Math.min(100, (c.brandDeals / 20) * 100);
   if (c.followers === null || c.followers === 'N/A') {
     return +((c.media * 0.35 + brandScore * 0.20 + c.fanActivity * 0.15 + c.searchTrend * 0.05) / 0.75).toFixed(1);
   }
-  const followersScore = Math.min(100, c.followers);
+  const fScore = followersScore(c.followers);
   return +(
-    (followersScore * 0.25) +
-    (c.media        * 0.35) +
-    (brandScore     * 0.20) +
-    (c.fanActivity  * 0.15) +
-    (c.searchTrend  * 0.05)
+    (fScore        * 0.25) +
+    (c.media       * 0.35) +
+    (brandScore    * 0.20) +
+    (c.fanActivity * 0.15) +
+    (c.searchTrend * 0.05)
   ).toFixed(1);
 }
 
@@ -1038,7 +1045,7 @@ function renderTable(page,filter){
           <div class="celeb-name-kr">${c.kr}</div>
           <div class="celeb-meta">${c.tags.slice(0,2).map(t=>`<span class="tag ${t}">${t.toUpperCase()}</span>`).join('')}${ob}</div>
         </div></div></td>
-        <td><div class="metric-bar"><div class="bar-track"><div class="bar-fill" style="width:${c.followers===null||c.followers==='N/A'?0:Math.min(100,c.followers)}%"></div></div><span class="metric-val">${social}</span></div></td>
+        <td><div class="metric-bar"><div class="bar-track"><div class="bar-fill" style="width:${followersScore(c.followers)}%"></div></div><span class="metric-val">${social}</span></div></td>
         <td><div class="metric-bar"><div class="bar-track"><div class="bar-fill" style="width:${c.media}%;background:#c8a84b"></div></div><span class="metric-val">${c.media}/100</span></div></td>
         <td><span class="trend-badge ${c.trend}">${trendLabel(c.trend)}</span></td>
         <td><div class="power-score">${c.score}</div><div class="score-change ${c.ch}">${c.ch==='up'?'▲':c.ch==='down'?'▼':'—'} ${c.ct} pts</div></td>
@@ -1092,7 +1099,7 @@ function renderHomeTable(){
           <div class="celeb-name">${c.name}</div><div class="celeb-name-kr">${c.kr}</div>
           <div class="celeb-meta">${c.tags.slice(0,2).map(t=>`<span class="tag ${t}">${t.toUpperCase()}</span>`).join('')}</div>
         </div></div></td>
-        <td><div class="metric-bar"><div class="bar-track"><div class="bar-fill" style="width:${c.followers===null||c.followers==='N/A'?0:Math.min(100,c.followers)}%"></div></div><span class="metric-val">${social}</span></div></td>
+        <td><div class="metric-bar"><div class="bar-track"><div class="bar-fill" style="width:${followersScore(c.followers)}%"></div></div><span class="metric-val">${social}</span></div></td>
         <td><div class="metric-bar"><div class="bar-track"><div class="bar-fill" style="width:${c.media}%;background:#c8a84b"></div></div><span class="metric-val">${c.media}/100</span></div></td>
         <td><span class="trend-badge ${c.trend}">${trendLabel(c.trend)}</span></td>
         <td><div class="power-score">${c.score}</div><div class="score-change ${c.ch}">${c.ch==='up'?'▲':c.ch==='down'?'▼':'—'} ${c.ct} pts</div></td>
@@ -1228,7 +1235,7 @@ function openModal(id){
   const labels=['Social Reach','Media Presence','Brand Influence','Fan Engagement','Search Interest'];
   const hasFollowers=c.followers!==null&&c.followers!=='N/A';
   const vals=hasFollowers
-    ?[Math.min(100,c.followers)*0.25, c.media*0.35, Math.min(100,(c.brandDeals/20)*100)*0.20, c.fanActivity*0.15, c.searchTrend*0.05]
+    ?[followersScore(c.followers)*0.25, c.media*0.35, Math.min(100,(c.brandDeals/20)*100)*0.20, c.fanActivity*0.15, c.searchTrend*0.05]
     :[0, c.media*0.35/0.75, Math.min(100,(c.brandDeals/20)*100)*0.20/0.75, c.fanActivity*0.15/0.75, c.searchTrend*0.05/0.75];
   document.getElementById('modalBreakdown').innerHTML=labels.map((l,i)=>`
     <div class="breakdown-row">
