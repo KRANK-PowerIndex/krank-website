@@ -1311,6 +1311,19 @@ async function submitVote(){
     showVoteMsg('error','Please enter a valid email address.'); return;
   }
 
+  // Rate limit: max 1 vote per 30 minutes per email
+  const LIMIT=1, WINDOW=30*60*1000;
+  const rateTimes=JSON.parse(localStorage.getItem('krank_rate')||'{}');
+  const now=Date.now();
+  const recent=(rateTimes[email]||[]).filter(t=>now-t<WINDOW);
+  if(recent.length>=LIMIT){
+    const waitMin=Math.ceil((WINDOW-(now-Math.min(...recent)))/60000);
+    showVoteMsg('error',`You can vote again in ${waitMin} minute${waitMin===1?'':'s'}. One vote per 30 minutes per email.`);
+    return;
+  }
+  rateTimes[email]=[...recent,now];
+  localStorage.setItem('krank_rate',JSON.stringify(rateTimes));
+
   const star = DB.find(e=>e.id===starId);
   const vote = {
     timestamp: new Date().toISOString(),
