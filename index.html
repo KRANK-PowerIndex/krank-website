@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>KRANK — Korean Influence Power Index</title>
 <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@300;400;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <style>
   :root{--black:#e4dfd9;--white:#1a1e2e;--red:#b8923a;--gold:#b8923a;--silver:#8a8480;--dim:#dbd5ce;--card:#f2ede7;--border:#ccc6be;--muted:#8a8480;--navy:#1a1e2e;--cream:#f7f3ed;--crimson:#c0392b;--gold-light:#e8d5a3;}
   *{margin:0;padding:0;box-sizing:border-box;}
@@ -423,7 +422,6 @@
   <div class="section" style="max-width:700px">
     <div class="vote-tally">
       <div class="vote-tally-box"><div class="vote-tally-num" id="voteCountDisplay">0</div><div class="vote-tally-label">YOUR VOTES</div></div>
-      <div class="vote-tally-box"><div class="vote-tally-num" id="voteNextSend">5</div><div class="vote-tally-label">UNTIL NEXT REPORT</div></div>
     </div>
     <div class="vote-note">
       ⭐ <strong>Your vote counts.</strong> Fan support votes contribute up to <strong>5%</strong> of the Fan Activity score, which makes up <strong>15%</strong> of each celebrity's total KRANK score. Every submission is tallied — cast your vote and help your favorite star rise in the rankings.
@@ -1133,19 +1131,8 @@ renderHomeTable();
 
 // =============================================
 // VOTE / SUPPORT SYSTEM
-// Setup: https://www.emailjs.com/
-//   1. Create free account at emailjs.com
-//   2. Add a Gmail (or other) email service → note your Service ID
-//   3. Create an email template with variables: {{subject}} and {{message}}
-//   4. Copy your Public Key from Account → API Keys
-//   5. Replace the three placeholder values below
 // =============================================
-const EMAILJS_SERVICE_ID  = 'service_krank';
-const EMAILJS_TEMPLATE_ID = 'template_tvag81l';
-const EMAILJS_PUBLIC_KEY  = 'IAS8qlneUO1sk5YN4';
-const VOTE_RECIPIENT      = 'krankindex@gmail.com';
-
-(function(){ emailjs.init({publicKey: EMAILJS_PUBLIC_KEY}); })();
+const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbzrovnREaaJMKiCR4gsUOgKiCsch9V5OTo0ubZuWKa_0EFS_fyyy4TrZG_UuCDAeahAcg/exec';
 
 let selectedVoteCat = null;
 let votePageInited  = false;
@@ -1184,18 +1171,14 @@ function populateVoteStars(cat){
 }
 
 function updateVoteDisplay(){
-  const all     = JSON.parse(localStorage.getItem('krank_votes')||'[]');
-  const pending = JSON.parse(localStorage.getItem('krank_votes_pending')||'[]');
-  const until   = 5 - (pending.length % 5 || (pending.length?5:0));
+  const all = JSON.parse(localStorage.getItem('krank_votes')||'[]');
   document.getElementById('totalVoteCount').textContent  = all.length;
   document.getElementById('voteCountDisplay').textContent= all.length;
-  document.getElementById('voteNextSend').textContent    = until===0?5:until;
 }
 
 async function submitVote(){
   const starId = parseInt(document.getElementById('voteStarSelect').value);
   const email  = document.getElementById('voteEmail').value.trim();
-  const msg    = document.getElementById('voteMsg');
 
   if(!selectedVoteCat){ showVoteMsg('error','Please select a category.'); return; }
   if(!starId){          showVoteMsg('error','Please select a star.');      return; }
@@ -1203,21 +1186,26 @@ async function submitVote(){
     showVoteMsg('error','Please enter a valid email address.'); return;
   }
 
-  const star    = DB.find(e=>e.id===starId);
-  const vote    = {cat:selectedVoteCat, starId, starName:star.name, starKr:star.kr.split('·')[0].trim(), email, ts:new Date().toISOString()};
-  const all     = JSON.parse(localStorage.getItem('krank_votes')||'[]');
-  const pending = JSON.parse(localStorage.getItem('krank_votes_pending')||'[]');
-  all.push(vote);
-  pending.push(vote);
-  localStorage.setItem('krank_votes',JSON.stringify(all));
-  localStorage.setItem('krank_votes_pending',JSON.stringify(pending));
+  const star = DB.find(e=>e.id===starId);
+  const vote = {
+    timestamp: new Date().toISOString(),
+    category:  selectedVoteCat,
+    starName:  star.name,
+    starKr:    star.kr.split('·')[0].trim(),
+    email
+  };
 
-  if(pending.length >= 5){
-    await sendVoteEmail(pending);
-    localStorage.setItem('krank_votes_pending',JSON.stringify([]));
+  const all = JSON.parse(localStorage.getItem('krank_votes')||'[]');
+  all.push(vote);
+  localStorage.setItem('krank_votes', JSON.stringify(all));
+  updateVoteDisplay();
+
+  try {
+    await fetch(SHEETS_URL, {method:'POST', body: JSON.stringify(vote)});
+  } catch(e){
+    console.warn('Sheets log failed:', e);
   }
 
-  updateVoteDisplay();
   showVoteMsg('success',`✓ Your vote for ${star.name} has been recorded! Thank you for your support.`);
   document.getElementById('voteEmail').value='';
   document.getElementById('voteStarSelect').value='';
@@ -1230,22 +1218,6 @@ function showVoteMsg(type, text){
   el.textContent = text;
   el.className   = 'vote-msg ' + type;
   setTimeout(()=>{ if(el.classList.contains('success')) el.className='vote-msg'; }, 4000);
-}
-
-async function sendVoteEmail(votes){
-  const lines = votes.map((v,i)=>
-    `${i+1}. ${v.starName} (${v.starKr}) — Category: ${v.cat} — Voter: ${v.email} — ${v.ts}`
-  ).join('\n');
-  const body = `KRANK received ${votes.length} new fan votes:\n\n${lines}\n\n— KRANK Auto-Report`;
-  try {
-    await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-      subject: `KRANK: ${votes.length} New Fan Votes`,
-      message: body,
-      to_email: VOTE_RECIPIENT
-    });
-  } catch(e){
-    console.warn('EmailJS send failed:', e);
-  }
 }
 </script>
 </body>
